@@ -29,11 +29,17 @@
       Scissors
     </button>
 
+    <p class="js-result"></p>
+    <p class="js-moves"></p>
+
+    <p class="js-score"></p>
+
     <button
       onclick="
     score.wins = 0;
     score.losses=0;
     score.ties=0;
+    updateScoreElement();
     localStorage.removeItem('store');
     "
     >
@@ -46,6 +52,8 @@
         losses: 0,
         ties: 0,
       };
+
+      updateScoreElement();
 
       //so using local storage, we were able to get the value that we saved earlier even though we refresh the page.
       /*
@@ -108,10 +116,27 @@
         //local storage only supports the strings.
         localStorage.setItem("score", JSON.stringify(score));
 
+        //we update the scores on popup and now we have to update on the page.
+        updateScoreElement();
+
+        document.querySelector(".js-result").innerHTML = result;
+
+        document.querySelector(
+          ".js-moves"
+        ).innerHTML = `You ${playerMove} - ${computerMove} Computer`;
+
+        /*
         alert(
           `You picked ${playerMove} . Computer picked ${computerMove}. ${result}
       Wins : ${score.wins} , Losses :${score.losses} , Ties: ${score.ties}`
         );
+        */
+      }
+
+      function updateScoreElement() {
+        document.querySelector(
+          ".js-score"
+        ).innerHTML = ` Wins : ${score.wins} , Losses :${score.losses} , Ties: ${score.ties}`;
       }
 
       function pickComputerMove() {
