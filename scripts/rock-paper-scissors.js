@@ -25,6 +25,36 @@ if (!score) {
 // (scop): any variable we create inside curly brackets {...} will only exist inside the curly brackets {...}.
 //scope limits where a variable exists.
 
+let isAutoPlaying = false;
+let intervalId;
+
+function autoPlay(){
+  if (!isAutoPlaying){
+    // arrow function.
+    intervalId = setInterval(()=>{
+      const playerMove = pickComputerMove();
+      playGame(playerMove);
+    },1000);
+    isAutoPlaying = true;
+  } else{
+    clearInterval(intervalId);
+    isAutoPlaying = false;
+  }
+  
+}
+
+document.querySelector('.js-rock-button').addEventListener('click', ()=>{
+  playGame('rock');
+});
+
+document.querySelector('.js-paper-button').addEventListener('click', ()=>{
+  playGame('paper');
+});
+
+document.querySelector('.js-scissors-button').addEventListener('click', ()=>{
+  playGame('scissors');
+});
+
 function playGame(playerMove) {
   const computerMove = pickComputerMove();
 
